@@ -1,6 +1,6 @@
 {
 	"name": "rsc-things",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"description": "Exports various components for testing React Server Components",
 	"type": "module",
 	"files": [

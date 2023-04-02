@@ -1,4 +1,3 @@
-import "server-only";
 import ClientComponent from "./client";
 
 export default async function ServerComponent() {
