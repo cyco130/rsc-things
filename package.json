@@ -1,12 +1,53 @@
 {
-	"name": "-TODO-",
+	"name": "rsc-things",
 	"version": "0.0.0",
-	"description": "-TODO-",
+	"description": "Exports various components for testing React Server Components",
 	"type": "module",
+	"files": [
+		"dist"
+	],
 	"exports": {
-		".": {
-			"import": "./dist/index.js",
-			"require": "./dist/index.cjs"
+		"./client": {
+			"import": "./dist/client.js",
+			"require": "./dist/client.cjs"
+		},
+		"./client.js": "./dist/client.js",
+		"./client.cjs": "./dist/client.cjs",
+		"./server": {
+			"import": "./dist/server.js",
+			"require": "./dist/server.cjs"
+		},
+		"./server.js": "./dist/server.js",
+		"./server.cjs": "./dist/server.cjs",
+		"./cins": {
+			"import": "./dist/cins.js",
+			"require": "./dist/cins.cjs"
+		},
+		"./cins.js": "./dist/cins.js",
+		"./cins.cjs": "./dist/cins.cjs",
+		"./shared": {
+			"import": "./dist/shared.js",
+			"require": "./dist/shared.cjs"
+		},
+		"./shared.js": "./dist/shared.js",
+		"./shared.cjs": "./dist/shared.cjs",
+		"./forked": {
+			"react-server": {
+				"import": "./dist/forked.server.js",
+				"require": "./dist/forked.server.cjs"
+			},
+			"default": {
+				"import": "./dist/forked.default.js",
+				"require": "./dist/forked.default.cjs"
+			}
+		},
+		"./forked.js": {
+			"react-server": "./dist/forked.server.js",
+			"default": "./dist/forked.default.js"
+		},
+		"./forked.cjs": {
+			"react-server": "./dist/forked.server.cjs",
+			"default": "./dist/forked.default.cjs"
 		}
 	},
 	"typesVersions": {
@@ -16,32 +57,36 @@
 			]
 		}
 	},
-	"types": "./dist/index.d.ts",
 	"scripts": {
 		"prepare": "husky install",
 		"precommit": "lint-staged",
 		"prepack": "rimraf dist && pnpm build",
-		"build": "tsup",
+		"build": "tsup && cp dist/forked.default.d.ts dist/forked.d.ts",
 		"dev": "tsup --watch",
-		"test": "pnpm run test:cq && pnpm run test:unit",
-		"test:cq": "pnpm run test:typecheck && pnpm run test:lint && pnpm run test:prettier",
-		"test:unit": "vitest run",
+		"test": "pnpm run test:typecheck && pnpm run test:lint && pnpm run test:prettier && pnpm run test:package",
 		"test:typecheck": "tsc -p tsconfig.json --noEmit",
 		"test:lint": "eslint src --max-warnings 0",
 		"test:prettier": "prettier --check --ignore-path .gitignore --ignore-unknown . '!pnpm-lock.yaml'",
+		"test:package": "publint",
 		"format": "prettier . --write --ignore-path .gitignore --ignore-unknown . '!pnpm-lock.yaml'"
 	},
+	"peerDependencies": {
+		"react": "*"
+	},
 	"devDependencies": {
-		"@cyco130/eslint-config": "^2.1.1",
-		"@types/node": "18.7.18",
-		"eslint": "^8.20.0",
-		"husky": "^8.0.1",
-		"lint-staged": "^13.0.3",
-		"prettier": "^2.7.1",
-		"rimraf": "^3.0.2",
-		"tsup": "^6.2.1",
-		"typescript": "^4.7.4",
-		"vitest": "^0.23.4"
+		"@cyco130/eslint-config": "^3.0.2",
+		"@types/node": "18.15.11",
+		"@types/react": "^18.0.31",
+		"eslint": "^8.37.0",
+		"husky": "^8.0.3",
+		"lint-staged": "^13.2.0",
+		"prettier": "^2.8.7",
+		"publint": "^0.1.11",
+		"react": "18.3.0-next-8310854ce-20230331",
+		"rimraf": "^4.4.1",
+		"tsup": "^6.7.0",
+		"typescript": "^5.0.3",
+		"vitest": "^0.29.8"
 	},
 	"repository": {
 		"type": "git",
@@ -51,5 +96,9 @@
 		"-TODO-"
 	],
 	"author": "Fatih Aygün <cyco130@gmail.com>",
-	"license": "MIT"
+	"license": "MIT",
+	"dependencies": {
+		"client-only": "^0.0.1",
+		"server-only": "^0.0.1"
+	}
 }
